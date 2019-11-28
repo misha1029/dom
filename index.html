@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+
+    <style>
+
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            padding: 20px;
+
+            background-color: #FE8C00;
+            margin: 0 auto;
+        }
+
+        .card{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            width: 250px;
+
+            background-color: white;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            margin-right: 30px;
+
+            transition-property:all;
+            transition-duration: 0.7s;
+
+        }
+
+
+        .cardInDelete{
+            transform: scale(0,0);
+        }
+
+        .card + .card{
+            /*margin-left: 30px;*/
+        }
+
+        .userImageContainer {
+            position: relative;
+            overflow: hidden;
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+
+            margin: 20px 0;
+        }
+
+        .imageInContainer {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .userName{
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom:20px;
+        }
+
+        .description{
+            margin-bottom: 20px;
+            text-align: center;
+
+            font-size: 16px;
+            font-family: 'Playfair Display', serif;
+         /*   line-height: 20px;
+            max-height: 40px;
+
+            text-overflow: ellipsis;
+            white-space: normal;
+            overflow: hidden;*/
+        }
+
+        .links{
+            display: flex;
+            justify-content:center;
+            margin-top: auto;
+        }
+
+        .linkItem{
+            position: relative;
+            overflow: hidden;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+        }
+
+        .deleteButton{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 0;
+            text-align: center;
+            background-color: red;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 10px;
+            color:white;
+        }
+
+
+
+        .deleteButton:active{
+            -webkit-box-shadow: inset 0px 0px 5px 4px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px 0px 5px 4px rgba(0,0,0,0.75);
+            box-shadow: inset 0px 0px 5px 4px rgba(0,0,0,0.75);
+        }
+
+        .linkItem + .linkItem{
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <!--  <div class="card">
+          <div class="userImageContainer">
+              <img src="https://avatars1.githubusercontent.com/u/9919?s=200&v=4" alt="" class="imageInContainer">
+          </div>
+
+          <div class="userName">
+              <p>Mathew Alex</p>
+          </div>
+
+          <div class="description">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, quaerat.</p>
+          </div>
+
+          <div class="links">
+              <div class="linkItem">
+                  <a href="">
+                      <img src="https://avatars1.githubusercontent.com/u/9919?s=200&v=4" alt="" class="imageInContainer">
+                  </a>
+              </div>
+              <div class="linkItem">
+                  <a href="">
+                      <img src="https://avatars1.githubusercontent.com/u/9919?s=200&v=4" alt="" class="imageInContainer">
+                  </a>
+              </div>
+              <div class="linkItem">
+                  <a href="">
+                      <img src="https://avatars1.githubusercontent.com/u/9919?s=200&v=4" alt="" class="imageInContainer">
+                  </a>
+              </div>
+          </div>
+
+      </div>-->
+
+</div>
+
+
+<script>
+    'use strict';
+
+    const SOCIAL_NETWORKS = Object.freeze(
+        {
+            FACEBOOK:"FACEBOOK",
+            TWITTER:"TWITTER",
+            SKYPE: "SKYPE",
+            GOOGLE: "GOOGLE",
+            INSTAGRAM: "INSTAGRAM",
+        }
+    );
+
+    const socialIcon = new Map();
+
+    socialIcon.set(SOCIAL_NETWORKS.FACEBOOK, "./assets/img/icon/facebook.png");
+    socialIcon.set(SOCIAL_NETWORKS.TWITTER, "./assets/img/icon/twitter.png");
+    socialIcon.set(SOCIAL_NETWORKS.SKYPE, "./assets/img/icon/skype.png");
+    socialIcon.set(SOCIAL_NETWORKS.GOOGLE, "./assets/img/icon/google.png");
+    socialIcon.set(SOCIAL_NETWORKS.INSTAGRAM, "./assets/img/icon/instagram.png");
+
+    const users = [
+        {
+            id: 1,
+            name: "Daniel",
+            surname: "Craig",
+            description: "Identifying the clothing\n" +
+                "accessories of British actor Daniel Craig.",
+            imageSrc: "https://cdnph.upi.com/svc/sv/upi/4241558609409/2019/1/818c65ef02cc80fa3f0da8ff79cf3530/Daniel-Craig-to-undergo-ankle-surgery-Bond-25-unaffected.jpg",
+            links:[
+                {
+                    type: SOCIAL_NETWORKS.TWITTER,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.INSTAGRAM,
+                    url: "https://www.instagram.com/whatsdanielwearing/?hl=ru",
+                },
+            ],
+        },
+        {
+            id: 2,
+            name: "Dwayne",
+            surname: "Johnson",
+            description: "Mana. gratitude. tequila.",
+            imageSrc: "https://bigpicture.ru/wp-content/uploads/2019/04/IMG_5642.jpg",
+            links:[
+                {
+                    type: SOCIAL_NETWORKS.INSTAGRAM,
+                    url: "https://www.instagram.com/therock/?hl=ru",
+                },
+                {
+                    type: SOCIAL_NETWORKS.TWITTER,
+                    url: "https://twitter.com/therock",
+                },
+            ],
+        },
+        {
+
+            id: 3,
+            name: "Cristiano",
+            surname: "Ronaldo",
+            description: "Great win at home! Top of the group!",
+            imageSrc: "https://dynamo.kiev.ua/media/posts/2019/06/22/skysports-cristiano-ronaldo_4510781.jpg",
+            links:[
+                {
+                    type: SOCIAL_NETWORKS.INSTAGRAM,
+                    url: "https://www.instagram.com/cristiano/?hl=ru",
+                },
+                {
+                    type: SOCIAL_NETWORKS.TWITTER,
+                    url: "https://twitter.com/cristiano?lang=ru",
+                },
+
+            ],
+        },
+        {
+            id: 4,
+            name: "Gal",
+            surname: "Gadot",
+            description: "The color that empowers me? ",
+            imageSrc: "https://s.mediasole.ru/cache/content/data/images/1552/1552018/original.jpg",
+            links:[
+                {
+                    type: SOCIAL_NETWORKS.TWITTER,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.INSTAGRAM,
+                    url: "https://www.instagram.com/gal_gadot/?hl=ru",
+                },
+                {
+                    type: SOCIAL_NETWORKS.FACEBOOK,
+                    url: "#",
+                },
+            ],
+        },
+        {
+
+            id:5,
+
+            name: "Emma",
+            surname: "Watson",
+            description: "It won't always be like this. It's going to get better.",
+            imageSrc: "https://file.liga.net/images/general/2018/04/05/20180405155304-1779.jpg",
+            links:[
+                {
+                    type: SOCIAL_NETWORKS.TWITTER,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.GOOGLE,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.FACEBOOK,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.INSTAGRAM,
+                    url: "#",
+                },
+                {
+                    type: SOCIAL_NETWORKS.SKYPE,
+                    url: "#",
+                },
+            ],
+        },
+
+    ];
+
+
+    const userCardItem = document.getElementById("container");
+
+    users.forEach( item => {
+        userCardItem.append(cardGenerate(item));
+    });
+
+    function cardGenerate(user) {
+
+        const card = document.createElement("div");  //!!!!!!!!!!
+        card.classList.add("card");
+        card.setAttribute("id", `${user.id}`);
+
+        const userImageContainer = document.createElement("div");
+        userImageContainer.classList.add("userImageContainer");
+
+        const userFoto = document.createElement("img");
+        userFoto.classList.add("imageInContainer");
+        userFoto.setAttribute("src", user.imageSrc);
+        userFoto.setAttribute("alt", "user avatar");
+
+        userImageContainer.append(userFoto);
+
+
+        const userFullName = document.createElement("div");
+        userFullName.classList.add("userName");
+        userFullName.innerText = `${user.name} ${user.surname}`;
+
+
+        const description = document.createElement("div");
+        description.classList.add("description");
+        description.innerText = `${user.description}`;
+
+        const links = document.createElement("div");
+        links.classList.add("links");
+
+        user.links.forEach( function(item)  {
+
+                const linkItem = document.createElement("div");
+                linkItem.classList.add("linkItem");
+
+                const link = document.createElement("a");
+                link.setAttribute("href", `${item.url}`);
+
+                const img = document.createElement("img");
+                img.classList.add("imageInContainer");
+                img.setAttribute("src", socialIcon.get(item.type));
+
+                link.append(img);
+
+                linkItem.append(link);
+
+                links.append(linkItem);
+
+            }
+
+        );
+
+
+        const deleteButton = document.createElement("div");
+        deleteButton.classList.add("deleteButton");
+        deleteButton.innerText = "DELETE";
+        deleteButton.addEventListener("click", deleteCard);
+
+
+        function deleteCard(event) {
+
+            const itemToDelete = document.getElementById(user.id);
+            itemToDelete.classList.add("cardInDelete");
+            event.stopPropagation();
+            setTimeout(()=>{
+                itemToDelete.remove();
+            }, 700);
+        }
+
+        card.append(userImageContainer);
+        card.append(userFullName);
+        card.append(description);
+        card.append(links);
+        card.append(deleteButton);
+
+        return card;
+    }
+
+</script>
+
+</body>
+</html>
